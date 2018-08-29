@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Node of the adjacency list
+// Node for the adjacency list
 struct node {
   int vertex, weight;
   struct node *next;
