@@ -1,0 +1,4 @@
+It can be noted from this experiment that the order of growth of time complexities is in the following order:
+O(log n) < O(n) < O(n * n) < O(n * n * n) < O(2 ^ n)
+
+
