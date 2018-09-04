@@ -35,20 +35,20 @@ void buildMinHeap(unsigned int A[][2], unsigned int n) {
   }
 }
 
-unsigned int extractMinFromHeap(unsigned int A[][2], unsigned int n,
+unsigned int extractMinFromHeap(unsigned int heap[][2], unsigned int n,
                                 unsigned int *node_index) {
   if (n < 1) {
     printf("error: underflow\n");
     return -1;
   }
 
-  unsigned int min = A[0][0];
-  unsigned int u = A[0][1];
+  unsigned int min = heap[0][0];
+  unsigned int u = heap[0][1];
 
   if (n > 1) {
-    A[0][0] = A[n - 1][0];
-    A[0][1] = A[n - 1][1];
-    buildMinHeap(A, n - 1);
+    heap[0][0] = heap[n - 1][0];
+    heap[0][1] = heap[n - 1][1];
+    buildMinHeap(heap, n - 1);
   }
   *node_index = u;
   return min;
@@ -140,11 +140,12 @@ int main() {
     memset(adjacencyMatrix, -1, sizeof(adjacencyMatrix));
     memset(shortestDistance, -1, sizeof(shortestDistance));
     printf("%s\n", "Enter the source destination followed by the weight: ");
-    for (int i = 0; i < edges; i++) {
-      int x, y, r;
-      scanf("%d %d %d", &x, &y, &r);
-      if (adjacencyMatrix[x - 1][y - 1] > r) {
-        adjacencyMatrix[x - 1][y - 1] = r;
+    for (int i = 0; i < nodes; i++) {
+      for (int j = 0; j < nodes; j++) {
+        scanf("%d", &adjacencyMatrix[i][j]);
+        if (!adjacencyMatrix[i][j]) {
+          adjacencyMatrix[i][j] = -1;
+        }
       }
     }
     printf("%s\n", "Enter the start vertex: ");
