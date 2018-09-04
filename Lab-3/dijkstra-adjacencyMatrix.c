@@ -3,29 +3,29 @@
 #include <stdlib.h>
 #include <string.h>
 int nodes, edges;
-void min_heapify(unsigned int A[][2], unsigned int index, unsigned int n) {
+void min_heapify(unsigned int heap[][2], unsigned int index, unsigned int n) {
   unsigned int leftChild = 2 * index;
   unsigned int rightChild = 2 * index + 1;
   unsigned int smallest = 0;
 
-  if (leftChild <= n && A[leftChild - 1][0] < A[index - 1][0]) {
+  if (leftChild <= n && heap[leftChild - 1][0] < heap[index - 1][0]) {
     smallest = leftChild;
   } else {
     smallest = index;
   }
-  if (rightChild <= n && A[rightChild - 1][0] < A[smallest - 1][0]) {
+  if (rightChild <= n && heap[rightChild - 1][0] < heap[smallest - 1][0]) {
     smallest = rightChild;
   }
   if (smallest != index) {
-    unsigned int temp1 = A[index - 1][0];
-    unsigned int temp2 = A[index - 1][1];
+    unsigned int temp1 = heap[index - 1][0];
+    unsigned int temp2 = heap[index - 1][1];
 
-    A[index - 1][0] = A[smallest - 1][0];
-    A[index - 1][1] = A[smallest - 1][1];
-    A[smallest - 1][0] = temp1;
-    A[smallest - 1][1] = temp2;
+    heap[index - 1][0] = heap[smallest - 1][0];
+    heap[index - 1][1] = heap[smallest - 1][1];
+    heap[smallest - 1][0] = temp1;
+    heap[smallest - 1][1] = temp2;
 
-    min_heapify(A, smallest, n);
+    min_heapify(heap, smallest, n);
   }
 }
 
