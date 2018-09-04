@@ -3,15 +3,16 @@
 #include <stdlib.h>
 
 struct node {
-  int vertex, weight;
+  unsigned int vertex, weight;
   struct node *next;
 };
 
 struct vertex {
-  int vertex, dist;
+  unsigned int vertex, dist;
 };
 
-struct node *addEdge(struct node *head, int vertex, int weight) {
+struct node *addEdge(struct node *head, unsigned int vertex,
+                     unsigned int weight) {
   struct node *newNode = (struct node *)calloc(1, sizeof(struct node));
 
   newNode->vertex = vertex;
@@ -21,7 +22,8 @@ struct node *addEdge(struct node *head, int vertex, int weight) {
   return newNode;
 }
 
-void heapify(struct vertex minHeap[], int size, int i, int position[]) {
+void heapify(struct vertex minHeap[], unsigned int size, unsigned int i,
+             unsigned int position[]) {
   struct vertex temp;
 
   while ((2 * i) <= size) {
@@ -65,8 +67,9 @@ void heapify(struct vertex minHeap[], int size, int i, int position[]) {
   }
 }
 
-void buildHeap(struct vertex minHeap[], int size, int position[]) {
-  int i;
+void buildHeap(struct vertex minHeap[], unsigned int size,
+               unsigned int position[]) {
+  unsigned int i;
 
   for (i = size / 2; i >= 1; --i) {
     heapify(minHeap, size, i, position);
@@ -74,10 +77,10 @@ void buildHeap(struct vertex minHeap[], int size, int position[]) {
 }
 
 void decreaseKey(struct vertex minHeap[], struct vertex newNode,
-                 int position[]) {
+                 unsigned int position[]) {
   minHeap[position[newNode.vertex]].dist = newNode.dist;
 
-  int i = position[newNode.vertex];
+  unsigned int i = position[newNode.vertex];
   struct vertex temp;
 
   while (i > 1) {
@@ -96,7 +99,8 @@ void decreaseKey(struct vertex minHeap[], struct vertex newNode,
   }
 }
 
-struct vertex extractMin(struct vertex minHeap[], int size, int position[]) {
+struct vertex extractMin(struct vertex minHeap[], unsigned int size,
+                         unsigned int position[]) {
   position[minHeap[1].vertex] = size;
   position[minHeap[size].vertex] = 1;
 
@@ -109,16 +113,16 @@ struct vertex extractMin(struct vertex minHeap[], int size, int position[]) {
   return min;
 }
 
-void dijkstra(struct node *adjacencyList[], int vertices, int startVertex,
-              int distances[]) {
-  int i;
+void dijkstra(struct node *adjacencyList[], unsigned int vertices,
+              unsigned int startVertex, unsigned int distances[]) {
+  unsigned int i;
   struct vertex minVertex;
   struct vertex priorityQueue[vertices + 1];
-  int position[vertices + 1];
+  unsigned int position[vertices + 1];
 
   for (i = 1; i <= vertices; ++i) {
-    distances[i] = INT_MAX;
-    priorityQueue[i].dist = INT_MAX;
+    distances[i] = UINT_MAX;
+    priorityQueue[i].dist = UINT_MAX;
     priorityQueue[i].vertex = i;
     position[i] = priorityQueue[i].vertex;
   }
@@ -132,11 +136,11 @@ void dijkstra(struct node *adjacencyList[], int vertices, int startVertex,
     struct node *adjacent = adjacencyList[minVertex.vertex];
 
     while (adjacent != NULL) {
-      int u = minVertex.vertex;
-      int v = adjacent->vertex;
-      int w = adjacent->weight;
+      unsigned int u = minVertex.vertex;
+      unsigned int v = adjacent->vertex;
+      unsigned int w = adjacent->weight;
 
-      if (distances[u] != INT_MAX && distances[v] > distances[u] + w) {
+      if (distances[u] != UINT_MAX && distances[v] > distances[u] + w) {
         distances[v] = distances[u] + w;
         struct vertex changedVertex;
 
@@ -151,7 +155,7 @@ void dijkstra(struct node *adjacencyList[], int vertices, int startVertex,
 }
 
 int main() {
-  int vertices, edges, i, v1, v2, w, startVertex;
+  unsigned int vertices, edges, i, v1, v2, w, startVertex;
 
   printf("Enter the Number of Vertices: ");
   scanf("%d", &vertices);
@@ -159,7 +163,7 @@ int main() {
   scanf("%d", &edges);
 
   struct node *adjacencyList[vertices + 1];
-  int distances[vertices + 1];
+  unsigned int distances[vertices + 1];
 
   for (i = 0; i <= vertices; ++i) {
     adjacencyList[i] = NULL;
