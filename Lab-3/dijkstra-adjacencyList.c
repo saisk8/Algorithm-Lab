@@ -1,6 +1,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 struct node {
   unsigned int vertex, weight;
@@ -156,31 +157,46 @@ void dijkstra(struct node *adjacencyList[], unsigned int vertices,
 
 int main() {
   unsigned int vertices, edges, i, v1, v2, w, startVertex;
+  FILE *p, *q, *r;
+  p = fopen("in-list.txt", "r");
+  q = fopen("out-list.txt", "w");
+  r = fopen("readme.txt", "a+");
+  int testCases, count = 0;
+  clock_t time = 0;
+  fscanf(p, "%d", &testCases);
+  fprintf(r, "%s\n", "For adjacency list and min heap algorithm: ");
+  fprintf(r, "%-10s   %-15s\n", "N Value ", "Time Taken  ");
+  while (testCases--) {
+    fprintf(q, "Test Case: %d\n", ++count);
+    fscanf(p, "%d", &vertices);
+    fscanf(p, "%d", &edges);
 
-  printf("Enter the Number of Vertices: ");
-  scanf("%d", &vertices);
-  printf("Enter the Number of Edges: ");
-  scanf("%d", &edges);
+    struct node *adjacencyList[vertices + 1];
+    unsigned int distances[vertices + 1];
 
-  struct node *adjacencyList[vertices + 1];
-  unsigned int distances[vertices + 1];
+    for (i = 0; i <= vertices; ++i) {
+      adjacencyList[i] = NULL;
+    }
 
-  for (i = 0; i <= vertices; ++i) {
-    adjacencyList[i] = NULL;
+    for (i = 1; i <= edges; ++i) {
+      fscanf(p, "%d%d%d", &v1, &v2, &w);
+      adjacencyList[v1] = addEdge(adjacencyList[v1], v2, w);
+    }
+
+    fscanf(p, "%d", &startVertex);
+    time = clock();
+    dijkstra(adjacencyList, vertices, startVertex, distances);
+    time = clock() - time;
+    fprintf(r, "%-10d: %-15lf\n", vertices, ((double)(time)) / CLOCKS_PER_SEC);
+    fprintf(q, "Shortest distances -\n");
+
+    for (i = 1; i <= vertices; ++i) {
+      fprintf(q, "Node: %d, Distance = %d\n", i, distances[i]);
+    }
+    fprintf(q, "\n\n");
   }
-
-  for (i = 1; i <= edges; ++i) {
-    scanf("%d%d%d", &v1, &v2, &w);
-    adjacencyList[v1] = addEdge(adjacencyList[v1], v2, w);
-  }
-
-  printf("Enter start vertex -\n");
-  scanf("%d", &startVertex);
-  dijkstra(adjacencyList, vertices, startVertex, distances);
-  printf("Shortest distances -\n");
-
-  for (i = 1; i <= vertices; ++i) {
-    printf("Vertex %d, Distance = %d\n", i, distances[i]);
-  }
+  fclose(p);
+  fclose(q);
+  fclose(r);
   return 0;
 }

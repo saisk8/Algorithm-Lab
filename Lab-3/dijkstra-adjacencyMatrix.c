@@ -2,8 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-int nodes, edges;
-void min_heapify(unsigned int heap[][2], unsigned int index, unsigned int n) {
+#include <time.h>
+
+int nodes;
+void minHeapify(unsigned int heap[][2], unsigned int index, unsigned int n) {
   unsigned int leftChild = 2 * index;
   unsigned int rightChild = 2 * index + 1;
   unsigned int smallest = 0;
@@ -25,13 +27,13 @@ void min_heapify(unsigned int heap[][2], unsigned int index, unsigned int n) {
     heap[smallest - 1][0] = temp1;
     heap[smallest - 1][1] = temp2;
 
-    min_heapify(heap, smallest, n);
+    minHeapify(heap, smallest, n);
   }
 }
 
 void buildMinHeap(unsigned int A[][2], unsigned int n) {
   for (int i = (n / 2); i > 0; i--) {
-    min_heapify(A, i, n);
+    minHeapify(A, i, n);
   }
 }
 
@@ -54,8 +56,8 @@ unsigned int extractMinFromHeap(unsigned int heap[][2], unsigned int n,
   return min;
 }
 
-void heap_decrease_key(unsigned int heap[][2], unsigned int u,
-                       unsigned int weight, unsigned int n) {
+void heapDecreaseKey(unsigned int heap[][2], unsigned int u,
+                     unsigned int weight, unsigned int n) {
   for (int i = 0; i < n; i++) {
     if (heap[i][1] == u) {
       if (weight < heap[i][0]) {
@@ -118,7 +120,7 @@ void dijkstra(unsigned int adjacencyMatrix[][nodes], unsigned int distance[][2],
           if (distance[v][0] > distance[u][0] + w) {
             distance[v][0] = distance[u][0] + w;
             distance[v][1] = u;
-            heap_decrease_key(heap, v, distance[u][0] + w, n);
+            heapDecreaseKey(heap, v, distance[u][0] + w, n);
           }
         }
       }
@@ -128,34 +130,44 @@ void dijkstra(unsigned int adjacencyMatrix[][nodes], unsigned int distance[][2],
 
 int main() {
   int testCases, source;
-  printf("%s\n", "Enter the number of test cases: ");
-  scanf("%d", &testCases);
+  FILE *p, *q, *r;
+  p = fopen("in-matrix.txt", "r");
+  q = fopen("out-matrix.txt", "w");
+  r = fopen("readme.txt", "a+");
+  clock_t time = 0;
+  fscanf(p, "%d", &testCases);
+  fprintf(r, "%s\n", "For adjacency matrix and min heap algorithm: ");
+  fprintf(r, "%-10s   %-15s\n", "N Value ", "Time Taken  ");
   for (int i = 0; i < testCases; i++) {
-    printf("%s\n", "Enter the number of nodes and the number of edges: ");
-    scanf("%d %d", &nodes, &edges);
+    fprintf(q, "Test Case: %d\n", i + 1);
+    fscanf(p, "%d", &nodes);
 
     unsigned int adjacencyMatrix[nodes][nodes];
     unsigned int shortestDistance[nodes][2];
 
     memset(adjacencyMatrix, -1, sizeof(adjacencyMatrix));
     memset(shortestDistance, -1, sizeof(shortestDistance));
-    printf("%s\n", "Enter the source destination followed by the weight: ");
     for (int i = 0; i < nodes; i++) {
       for (int j = 0; j < nodes; j++) {
-        scanf("%d", &adjacencyMatrix[i][j]);
+        fscanf(p, "%d", &adjacencyMatrix[i][j]);
         if (!adjacencyMatrix[i][j]) {
           adjacencyMatrix[i][j] = -1;
         }
       }
     }
-    printf("%s\n", "Enter the start vertex: ");
-    scanf("%d", &source);
+    fscanf(p, "%d", &source);
+    time = clock();
     dijkstra(adjacencyMatrix, shortestDistance, source - 1, nodes);
-
+    time = clock() - time;
+    fprintf(r, "%-10d: %-15lf\n", nodes, ((double)(time)) / CLOCKS_PER_SEC);
+    fprintf(q, "%s\n", "Shortest distances-");
     for (int i = 0; i < nodes; i++) {
-      printf("Node: %d Weight: %d\n", i + 1, shortestDistance[i][0]);
+      fprintf(q, "Node: %d, Distance: %d\n", i + 1, shortestDistance[i][0]);
     }
-    printf("\n");
+    fprintf(q, "\n\n");
   }
+  fclose(p);
+  fclose(q);
+  fclose(r);
   return 0;
 }
