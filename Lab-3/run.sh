@@ -1,12 +1,24 @@
+
+# Clean directory
+echo "Cleaning directory..."
+rm -f *.o *.txt
+
 # Generate input files
-gcc adjancencyList_generator.c - o list_input_generator.o
-./list_input_generator
-gcc adjancencyMatrix_generator.c -o matrix_input_generator.o
-./matrix_input_generator
+echo "Generating inputs"
+gcc adjacencyList-generator.c -o list.o
+./list.o
+
+gcc adjacencyMatrix-generator.c -o matrix.o
+./matrix.o
+echo "Inputs generated"
 
 # Run Dijkstra's algorithm
+echo "Running Dijkstra with Adjacency List..."
 gcc dijkstra-adjacencyList.c -o dij_list.o
 ./dij_list.o
 
-gcc dijkstra-adjacencyMatrix.c -o dij_matrix.c
-./dij_matrix
+echo "Running Dijkstra with Adjacency Matrix..."
+gcc dijkstra-adjacencyMatrix.c -o dij_matrix.o
+./dij_matrix.o
+
+echo "Done. The results are populated in respective output files and the analysis is shown in readme.txt\nThank you"
