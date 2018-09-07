@@ -1,25 +1,13 @@
-programName			inputFile			Comaprisions		Swaps
-QuickSortFirstPivot		InputFiles/in_asce100.txt	      4950		        99
-QuickSortFirstPivot		InputFiles/in_asce1000.txt	    499500		       999
-QuickSortFirstPivot		InputFiles/in_asce10000.txt	  49995000		      9999
-QuickSortFirstPivot		InputFiles/in_asce100000.txt	4999950000		     99999
-QuickSortFirstPivot		InputFiles/in_desc100.txt	      4950		      2599
-QuickSortFirstPivot		InputFiles/in_desc1000.txt	    499500		    250999
-QuickSortFirstPivot		InputFiles/in_desc10000.txt	  49995000		  25009999
-QuickSortFirstPivot		InputFiles/in_desc100000.txt	4999950000		2500099999
-QuickSortFirstPivot		InputFiles/in_rand100.txt	       676		       412
-QuickSortFirstPivot		InputFiles/in_rand1000.txt	     11175		      5811
-QuickSortFirstPivot		InputFiles/in_rand10000.txt	    155742		     88161
-QuickSortFirstPivot		InputFiles/in_rand100000.txt	   1937736		   1049122
-QuickSortRandomPivot		InputFiles/in_asce100.txt	       652		       459
-QuickSortRandomPivot		InputFiles/in_asce1000.txt	     10541		      6911
-QuickSortRandomPivot		InputFiles/in_asce10000.txt	    160701		     93645
-QuickSortRandomPivot		InputFiles/in_asce100000.txt	   2018563		   1245328
-QuickSortRandomPivot		InputFiles/in_desc100.txt	       616		       491
-QuickSortRandomPivot		InputFiles/in_desc1000.txt	     10436		      7104
-QuickSortRandomPivot		InputFiles/in_desc10000.txt	    148076		     88567
-QuickSortRandomPivot		InputFiles/in_desc100000.txt	   1989268		   1057074
-QuickSortRandomPivot		InputFiles/in_rand100.txt	       698		       411
-QuickSortRandomPivot		InputFiles/in_rand1000.txt	     11549		      7069
-QuickSortRandomPivot		InputFiles/in_rand10000.txt	    170496		    100185
-QuickSortRandomPivot		InputFiles/in_rand100000.txt	   1993105		   1137465
+\nWhen a random element is considered as the pivot\n
+File name: in_asec100000.txt , Input Size: 100000, Number of Swaps = 119163  , Number of Comparisons = 1910181     
+File name: in_asec10000.txt  , Input Size: 10000 , Number of Swaps = 11920   , Number of Comparisons = 153701      
+File name: in_asec1000.txt   , Input Size: 1000  , Number of Swaps = 1189    , Number of Comparisons = 9763        
+File name: in_asec100.txt    , Input Size: 100   , Number of Swaps = 122     , Number of Comparisons = 542         
+File name: in_desc100000.txt , Input Size: 100000, Number of Swaps = 186478  , Number of Comparisons = 2049043     
+File name: in_desc10000.txt  , Input Size: 10000 , Number of Swaps = 20319   , Number of Comparisons = 147735      
+File name: in_desc1000.txt   , Input Size: 1000  , Number of Swaps = 1901    , Number of Comparisons = 9743        
+File name: in_desc100.txt    , Input Size: 100   , Number of Swaps = 201     , Number of Comparisons = 509         
+File name: in_ran100000.txt  , Input Size: 100000, Number of Swaps = 455868  , Number of Comparisons = 2045248     
+File name: in_ran10000.txt   , Input Size: 10000 , Number of Swaps = 38277   , Number of Comparisons = 154293      
+File name: in_ran1000.txt    , Input Size: 1000  , Number of Swaps = 3096    , Number of Comparisons = 10559       
+File name: in_ran100.txt     , Input Size: 100   , Number of Swaps = 231     , Number of Comparisons = 624         
