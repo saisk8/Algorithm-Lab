@@ -149,7 +149,7 @@ int main() {
             for (int j = 0; j < nodes; j++) {
                 fscanf(p, "%d", &adjacencyMatrix[i][j]);
                 if (!adjacencyMatrix[i][j]) {
-                    adjacencyMatrix[i][j] = -1;
+                    adjacencyMatrix[i][j] = UINT_MAX;
                 }
             }
         }
