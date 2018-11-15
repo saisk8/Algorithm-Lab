@@ -7,6 +7,7 @@ int max(int a, int b) { return (a > b) ? a : b; }
 int knapSack(int W, int wt[], int val[], int n) {
     int i, w;
     int K[n + 1][W + 1];
+    int x[n + 1];  // intilaise with zeros;
 
     // Build table K[][] in bottom up manner
     for (i = 0; i <= n; i++) {
@@ -20,7 +21,20 @@ int knapSack(int W, int wt[], int val[], int n) {
                 K[i][w] = K[i - 1][w];
         }
     }
-
+    int a = n, b = W;
+    while (a != 0 && b != 0) {
+        if (K[a][b] != K[a - 1][b]) {
+            x[i] = 1;
+            b = b - wt[i];
+            a--;
+        } else
+            a--;
+    }
+    int count = 0;
+    printf("Items included are\n");
+    printf("Sl.no\tweight\tprofit\n");
+    for (i = 1; i <= n; i++)
+        if (x[i]) printf("%d\t%d\t%d\n", ++count, wt[i], val[i]);
     return K[n][W];
 }
 
