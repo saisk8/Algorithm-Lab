@@ -1,7 +1,7 @@
 // C++ program for coin change problem.
 #include <limits.h>
 #include <stdio.h>
-
+int N = 5, A = 11, INF = 999;
 int count(int S[], int m, int n) {
     // table[i] will be storing the number of solutions for
     // value i. We need n+1 rows as the table is constructed
@@ -60,4 +60,35 @@ int main() {
     count(arr, m, n);
     minCoins(coins, m, V);
     return 0;
+}
+
+void coinChange(int d[N + 1], int C[A + 1], int S[A + 1]) {
+    int i, p, min, coin;
+
+    // when amount is 0
+    // then min coin required is 0
+    C[0] = 0;
+    S[0] = 0;
+
+    for (p = 1; p <= A; p++) {
+        min = INF;
+        for (i = 1; i <= N; i++) {
+            if (d[i] <= p) {
+                if (1 + C[p - d[i]] < min) {
+                    min = 1 + C[p - d[i]];
+                    coin = i;
+                }
+            }
+        }
+        C[p] = min;
+        S[p] = coin;
+    }
+}
+
+void coinSet(int d[N + 1], int S[A + 1]) {
+    int a = A;
+    while (a > 0) {
+        printf("Use coin of denomination: %d\n", d[S[a]]);
+        a = a - d[S[a]];
+    }
 }
